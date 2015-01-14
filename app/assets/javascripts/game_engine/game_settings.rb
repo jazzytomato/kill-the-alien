@@ -4,7 +4,7 @@ class GameSettings
   @@gravity = 9.81
   @@velocity = 10
   @@impact_radius = 10 # in meter
-  @@board_margin = 200 / @@meter # left margin so the board doesn't include the player
+  @@board_margin = 150 / @@meter # left margin so the board doesn't include the player
   @@board_width
   
   def self.meter

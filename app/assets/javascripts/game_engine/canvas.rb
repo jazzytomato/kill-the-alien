@@ -27,7 +27,7 @@ class Canvas
       @animation_frame = 0
       draw
       if @game.win
-        alert "You have killed the alien. Congrats !" 
+        alert "You killed the alien with a banana. Impressive !" 
         @game = Game.new
         draw
       end
@@ -35,7 +35,7 @@ class Canvas
   end
   
   def clear
-    draw_image `document.getElementById('background_img')`, 0, 0
+    draw_image `document.getElementById('background_img')`, 0,0
   end
   
   private
