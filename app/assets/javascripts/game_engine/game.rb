@@ -1,14 +1,11 @@
 class Game
     
-  attr_accessor :alien, :bullet, :alpha, :impact
+  attr_accessor :alien, :alpha, :impact, :win
   
   def initialize 
     @alien = Alien.new
     @alpha = 30
-  end
-  
-  def turn
-    @alien.turn
+    @win = false
   end
   
   def alien_position
@@ -17,6 +14,8 @@ class Game
   
   def shoot
     @impact = GameSettings.board_margin + (get_impact(@alpha) / max_range * GameSettings.board_width).round
+    @win = hit_test? @impact
+    @alien.turn unless @win 
   end
   
   def hit_test? impact

@@ -9,12 +9,10 @@ Document.ready? do
     when 40 then game.decrease_angle
     when 82 then game = Game.new 
     when 32 then
-      if game.hit_test? game.shoot
-        alert "win"
-        game = Game.new
-      else 
-        game.turn 
-      end
+      game.shoot
+      canvas.animate game
+      game = Game.new if game.win
+      return
     else return 
     end
     canvas.draw game

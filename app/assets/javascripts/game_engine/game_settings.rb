@@ -1,10 +1,10 @@
 class GameSettings
   @@meter = 5 # number of pixels that represent one meter
-  @@alien_step = 3 # in meter
+  @@alien_step = 5 # in meter
   @@gravity = 9.81
   @@velocity = 10
   @@impact_radius = 10 # in meter
-  @@board_margin = 200 / @@meter
+  @@board_margin = 200 / @@meter # left margin so the board doesn't include the player
   @@board_width
   
   def self.meter

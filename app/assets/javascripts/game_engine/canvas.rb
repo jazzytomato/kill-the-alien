@@ -13,10 +13,20 @@ class Canvas
   
   def draw game
     clear
-    draw_bullet game.impact*GameSettings.meter, game.alpha unless game.impact.nil? #game.bullet unless game.bullet.nil?
-    @animation_frame = 0
-    draw_alien game.alien.position*GameSettings.meter
     draw_player game.alpha
+    draw_alien game.alien.position*GameSettings.meter
+  end
+  
+  def animate game 
+    @animation_frame += 5
+    if @animation_frame <= 100
+      draw_bezier game.impact , game.alpha
+      after_ms(30) { animate game }
+    else
+      @animation_frame = 0
+      draw game
+      alert "You have killed the alien. Congrats !" if game.win
+    end
   end
   
   def clear
@@ -25,17 +35,10 @@ class Canvas
   
   private
   
-  def draw_rect(x, y, w, h, color)
-    `#@context.fillStyle = #{color}`
-    `#@context.fillRect(#{x}, #{y}, #{w}, #{h})`
-  end
-  
-  def draw_bullet impact , alpha
-    @animation_frame += 10
-    if @animation_frame <= 100
-     `drawBezier(#@context,new Array({x:80, y:#{@height-70}},{x:#{impact/4}, y:#{@height-70-alpha*5}},{x:#{impact/1.2}, y:#{(@height-70-alpha*5)}},{x:#{(impact)}, y:#{@height}}),#{@animation_frame/100});`
-     after_ms(30) { draw_bullet impact , alpha }
-    end
+  def draw_bezier impact, alpha
+    return if impact.nil?
+    impact = impact*GameSettings.meter
+   `drawBezier(document.getElementById('banana_img'),#@context,new Array({x:80, y:#{@height-70}},{x:#{impact/4}, y:#{@height-70-alpha*5}},{x:#{impact/1.2}, y:#{(@height-70-alpha*5)}},{x:#{(impact)}, y:#{@height}}),#{@animation_frame/100});`
   end
   
   def draw_alien x
