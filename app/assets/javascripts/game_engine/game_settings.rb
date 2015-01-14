@@ -1,6 +1,4 @@
 class GameSettings
-  @@fps = 10
-  @@animation_ms = 1000/@@fps
   @@meter = 5 # number of pixels that represent one meter
   @@alien_step = 3 # in meter
   @@gravity = 9.81
@@ -8,14 +6,6 @@ class GameSettings
   @@impact_radius = 10 # in meter
   @@board_margin = 200 / @@meter
   @@board_width
-    
-  def self.fps
-    @@fps
-  end
-  
-  def self.animation_ms
-    @@animation_ms
-  end
   
   def self.meter
     @@meter

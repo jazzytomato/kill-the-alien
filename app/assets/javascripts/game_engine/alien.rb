@@ -14,7 +14,7 @@ class Alien
   
   def move
       step = random_step
-      step *= -1 if invalid_position? @position + step 
+      step *= -1 unless valid_position? @position + step 
       @position += step
       log
   end
@@ -23,8 +23,8 @@ class Alien
     [GameSettings.alien_step*-1,GameSettings.alien_step].sample
   end
   
-  def invalid_position? position
-    position > GameSettings.board_width ||  position < GameSettings.board_margin
+  def valid_position? position
+    position < GameSettings.board_width && position > GameSettings.board_margin
   end
   
   def initialize_position

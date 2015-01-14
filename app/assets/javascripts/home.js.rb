@@ -4,18 +4,18 @@ Document.ready? do
   canvas.draw game
   
   Window.on :keydown do |event|
-    game.increase_angle if event.key_code == 38 # up
-    game.decrease_angle if event.key_code == 40 # down
-    game = Game.new if event.key_code == 82 # r 
-    
-    if event.key_code == 32 # space
-      impact = game.shoot
-      if game.hit_test? impact
+    case event.key_code
+    when 38 then game.increase_angle
+    when 40 then game.decrease_angle
+    when 82 then game = Game.new 
+    when 32 then
+      if game.hit_test? game.shoot
         alert "win"
         game = Game.new
-      else
-        game.turn
+      else 
+        game.turn 
       end
+    else return 
     end
     canvas.draw game
   end
