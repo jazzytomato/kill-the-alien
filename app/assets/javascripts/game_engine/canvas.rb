@@ -1,6 +1,7 @@
 class Canvas
     
   attr_reader :width, :height, :animation_length
+  attr_accessor :game
 
   def initialize
     @canvas  = `document.getElementById('canvas')`
@@ -11,21 +12,25 @@ class Canvas
     GameSettings.generate_board_width @width
   end
   
-  def draw game
+  def draw
     clear
-    draw_player game.alpha
-    draw_alien game.alien.position*GameSettings.meter
+    draw_player @game.alpha
+    draw_alien @game.alien.position*GameSettings.meter
   end
   
-  def animate game 
+  def animate  
     @animation_frame += 5
     if @animation_frame <= 100
-      draw_bezier game.impact , game.alpha
-      after_ms(30) { animate game }
+      draw_bezier @game.impact , @game.alpha
+      after_ms(30) { animate }
     else
       @animation_frame = 0
-      draw game
-      alert "You have killed the alien. Congrats !" if game.win
+      draw
+      if @game.win
+        alert "You have killed the alien. Congrats !" 
+        @game = Game.new
+        draw
+      end
     end
   end
   

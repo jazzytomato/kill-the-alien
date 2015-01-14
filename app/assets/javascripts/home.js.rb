@@ -1,7 +1,7 @@
 Document.ready? do
   canvas = Canvas.new
-  game = Game.new
-  canvas.draw game
+  game = canvas.game = Game.new
+  canvas.draw
   
   Window.on :keydown do |event|
     case event.key_code
@@ -10,12 +10,11 @@ Document.ready? do
     when 82 then game = Game.new 
     when 32 then
       game.shoot
-      canvas.animate game
-      game = Game.new if game.win
+      canvas.animate
       return
     else return 
     end
-    canvas.draw game
+    canvas.draw
   end
   
 end
